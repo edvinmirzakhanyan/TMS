@@ -1,0 +1,510 @@
+import QtQml 2.12
+import QtQuick 2.12
+import QtQuick.Window 2.12
+import QtQuick.Controls 2.5
+import QtQuick.Layouts 1.0
+
+
+
+Page {
+    id: userTasksPage
+    width: parent.width
+    height: parent.height
+    visible:false
+    title: "Tasks"
+
+    onFocusChanged: root.showUserTasks();
+    signal assignorButtonClicked();
+
+    header: ToolBar {
+        id: tBar
+        height: 50
+        ToolButton {
+            id:tBotton
+            contentItem: Text {
+                text: "<"
+                font.pointSize: 14
+                color: tBotton.hovered ? "magenta" : "darkmagenta"
+            }
+            anchors.verticalCenter: parent.verticalCenter
+            onClicked: { stackView.pop();  tasksInfo.clear();  user.clearPerformersInfo(); }
+            background: Rectangle {
+                anchors.fill: parent
+                color: "transparent"
+            }
+        }
+        background: Rectangle {
+            anchors.fill: parent
+            color: "transparent"
+        }
+        Text {
+            id: toolButtonText
+            anchors.centerIn: parent
+            text: "Tasks"
+            font.pointSize: 17
+            color: "darkmagenta"
+        }
+    }
+
+    Rectangle {
+        id: root
+        width: parent.width
+        height: parent.height
+        anchors.topMargin: 50
+        color: "white"
+
+        Image {
+            id: mainImage
+            anchors.fill: parent
+            anchors.topMargin: 50
+            anchors.rightMargin: 130
+            anchors.leftMargin: 130
+            anchors.bottomMargin: 130
+            opacity: 0.50
+            source: "images/main.jpg"
+            fillMode: Image.PreserveAspectFit
+        }
+
+        Rectangle {
+            id: assignorInfoPage
+            width: parent.width
+            height: parent.height
+            anchors.left: parent.left
+            anchors.topMargin: 50
+            anchors.leftMargin: parent.width / 10
+            opacity: 0.90
+            color: "white"
+            visible: false
+
+            Rectangle {
+                id: position
+                anchors.top: parent.top
+                height: parent.height / 20
+                width: parent.width / 3
+                anchors.left: parent.left
+                anchors.topMargin: parent.height / 5
+                anchors.leftMargin: parent.width / 20
+                radius: 20
+                color: "magenta"
+                Text {
+                    id: positionText
+                    anchors.centerIn: parent
+                    font.pointSize: 12
+                    text: qsTr("Position")
+                    color: "white"
+                }
+            }
+
+            Rectangle {
+                id: positionField
+                anchors.top: parent.top
+                height: position.height
+                width: position.width
+                anchors.left: position.right
+                anchors.topMargin: parent.height / 5
+                anchors.leftMargin: 20
+                radius: 20
+                color: "white"
+                border.color: "magenta"
+                Text {
+                    id: positionFieldText
+                    anchors.centerIn: parent
+                    font.pointSize: 12
+                    text: qsTr("Administator")
+                    color: "magenta"
+                }
+            }
+
+            Rectangle {
+                id: name
+                anchors.top: position.bottom
+                height: position.height
+                width: position.width
+                anchors.left: position.left
+                anchors.topMargin: 30
+                radius: 20
+                color: "magenta"
+                Text {
+                    id: nameText
+                    anchors.centerIn: parent
+                    font.pointSize: 12
+                    text: qsTr("Name")
+                    color: "white"
+                }
+            }
+
+            Rectangle {
+                id: nameField
+                anchors.top: positionField.bottom
+                height: position.height
+                width: position.width
+                anchors.left: name.right
+                anchors.topMargin: 30
+                anchors.leftMargin: 20
+                radius: 20
+                color: "white"
+                border.color: "magenta"
+                Text {
+                    id: nameFieldText
+                    anchors.centerIn: parent
+                    font.pointSize: 12
+                    text: ""
+                    color: "magenta"
+                }
+            }
+
+            Rectangle {
+                id: surname
+                anchors.top: name.bottom
+                height: position.height
+                width: position.width
+                anchors.left: name.left
+                anchors.topMargin: 30
+                radius: 20
+                color: "magenta"
+                Text {
+                    id: surnameText
+                    anchors.centerIn: parent
+                    font.pointSize: 12
+                    text: qsTr("Surname")
+                    color: "white"
+                }
+            }
+
+            Rectangle {
+                id: surnameField
+                anchors.top: name.bottom
+                height: position.height
+                width: position.width
+                anchors.left: surname.right
+                anchors.topMargin: 30
+                anchors.leftMargin: 20
+                radius: 20
+                color: "white"
+                border.color: "magenta"
+                Text {
+                    id: surnameFieldText
+                    anchors.centerIn: parent
+                    font.pointSize: 11
+                    text:  ""
+                    color: "magenta"
+                }
+            }
+
+            Rectangle {
+                id: eMail
+                anchors.top: surname.bottom
+                height: position.height
+                width: position.width
+                anchors.left: name.left
+                anchors.topMargin: 30
+                radius: 20
+                color: "magenta"
+                Text {
+                    id: eMailText
+                    anchors.centerIn: parent
+                    font.pointSize: 12
+                    text: qsTr("E-Mail")
+                    color: "white"
+                }
+            }
+
+            Rectangle {
+                id: eMailField
+                anchors.top: surname.bottom
+                height: position.height
+                width: position.width
+                anchors.left: eMail.right
+                anchors.topMargin: 30
+                anchors.leftMargin: 20
+                radius: 20
+                color: "white"
+                border.color: "magenta"
+                Text {
+                    id: eMailFieldText
+                    anchors.centerIn: parent
+                    font.pointSize: 12
+                    text:  ""
+                    color: "magenta"
+                }
+            }
+
+
+            Button {
+                id: okButton
+                anchors.top: eMailField.bottom
+                anchors.left: position.left
+                anchors.right: positionField.right
+                anchors.leftMargin: 100
+                anchors.rightMargin: 100
+                height: position.height
+                anchors.topMargin: 30
+                background: Rectangle{
+                    id: okButtonBackground
+                    height: parent.height
+                    width: parent.width
+                    color: okButton.hovered ? "lightgray" : "white"
+                    radius: 20
+                    border.width: 2
+                    border.color: "darkmagenta"
+                }
+                contentItem: Text {
+                    id: okButtonText
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    text: qsTr("OK")
+                    font.pointSize: 14
+                    color: "darkmagenta"
+                }
+                onClicked: {
+                    tasksList.visible = true;
+                    tBar.visible = true;
+                    taskTableNames.visible = true;
+                    assignorInfoPage.visible = false;
+                }
+            }
+        }
+
+
+        Rectangle {
+            id: taskTableNames
+            anchors.top: parent.top
+            height: parent.height / 20
+            width: parent.width
+            anchors.left: parent.left
+            anchors.topMargin: parent.height / 15
+            anchors.leftMargin: parent.width / 15
+            color: "transparent"
+
+            Rectangle {
+                id: projectNameField
+                anchors.top: parent.top
+                anchors.left: parent.left
+                height: parent.height
+                width: parent.width / 5
+                color: "magenta"
+                radius: 20
+
+                Text {
+                    id: projectNameFieldText
+                    anchors.centerIn: parent
+                    font.pointSize: 12
+                    text: "Project Name"
+                    color: "white"
+                }
+            }
+
+            Rectangle {
+                id: taskNameField
+                anchors.top: parent.top
+                anchors.left: projectNameField.right
+                anchors.leftMargin: 20
+                height: parent.height
+                width: parent.width / 5
+                color: "magenta"
+                radius: 20
+
+                Text {
+                    id: taskNameFieldText
+                    anchors.centerIn: parent
+                    font.pointSize: 12
+                    text: "Task name"
+                    color: "white"
+                }
+            }
+
+            Rectangle {
+                id: statusField
+                anchors.top: parent.top
+                anchors.left: taskNameField.right
+                anchors.leftMargin: 20
+                height: parent.height
+                width: parent.width / 6
+                color: "magenta"
+                radius: 20
+
+                Text {
+                    id: statusFieldText
+                    anchors.centerIn: parent
+                    font.pointSize: 12
+                    text: "Status"
+                    color: "white"
+                }
+            }
+        }
+
+        Rectangle {
+            anchors.top: taskTableNames.bottom
+            anchors.bottom: parent.bottom
+            width: parent.width
+            anchors.left: parent.left
+            anchors.topMargin: 10
+            anchors.leftMargin: parent.width / 15
+            color: "transparent"
+
+            ListModel {
+                id: tasksInfo
+            }
+
+            ListView {
+                id:tasksList
+                anchors.fill: parent
+                model: tasksInfo
+                clip: true
+                spacing: 10
+                delegate: Rectangle {
+                    height: root.height / 20
+                    width: root.width
+                    color: "transparent"
+
+                    Label {
+                        id: adminId
+                        text: adminIdText
+                        visible: false
+                    }
+
+                    Label {
+                        id: projectName
+                        height: parent.height
+                        width: root.width / 5
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        text: projectNameText
+                        color: "magenta"
+                        background: Rectangle {
+                            anchors.fill: parent
+                            radius: 20
+                            color: "white"
+                            border.color: "magenta"
+                        }
+                    }
+
+                    Label {
+                        id: taskName
+                        height:  projectName.height
+                        width: root.width / 5
+                        anchors.left: projectName.right
+                        anchors.leftMargin: 20
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        text: taskNameText
+                        color: "magenta"
+                        background: Rectangle {
+                            anchors.fill: parent
+                            radius: 20
+                            color: "white"
+                            border.color: "magenta"
+                        }
+                    }
+
+                    Label {
+                        id: status
+                        height:  projectName.height
+                        width: root.width / 6
+                        anchors.left: taskName.right
+                        anchors.leftMargin: 20
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        text: statusText
+                        color: statusText === "Done" ? "green" : "orange"
+                        background: Rectangle {
+                            anchors.fill: parent
+                            radius: 20
+                            color: "white"
+                            border.color: "magenta"
+                        }
+                    }
+
+                    Button {
+                        id: assignorButton
+                        anchors.top: parent.top
+                        height: projectName.height
+                        width: status.width * 0.7
+                        anchors.left: status.right
+                        anchors.leftMargin: 20
+                        background: Rectangle {
+                            id: assignorButtonBackground
+                            width: parent.width
+                            height: parent.height
+                            color: assignorButton.hovered ? "lightgray" : "white"
+                            border.color: "darkmagenta"
+                            border.width: 2
+                            radius: 20
+                        }
+                        contentItem: Text {
+                            id: performerButtonText
+                            text: qsTr("Assignor")
+                            font.pointSize: 14
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+                            color: "darkmagenta"
+                        }
+                        onClicked: {
+                            user.getAssignorInfo(tasksInfo.get(index).adminIdText);
+                        }
+                    }
+
+                    Button {
+                        id: changeStatusButton
+                        anchors.top: parent.top
+                        height: projectName.height
+                        width: status.width * 0.7
+                        anchors.left: assignorButton.right
+                        anchors.leftMargin: 20
+                        background: Rectangle {
+                            id: changeStatusButtonBackground
+                            width: parent.width
+                            height: parent.height
+                            color: changeStatusButton.hovered ? "lightgray" : "white"
+                            border.color: "darkmagenta"
+                            border.width: 2
+                            radius: 20
+                        }
+                        contentItem: Text {
+                            id: changeStatusButtonText
+                            text: qsTr("Change Status")
+                            font.pointSize: 14
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+                            color: "darkmagenta"
+                        }
+                        onClicked: {
+                            if (status.text !== "Done") {
+                                user.changeTaskStatus(tasksInfo.get(index).taskNameText, "Done");
+                                status.color = "green";
+                                status.text = "Done";
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+
+        function showAssignorInfo(line) {
+            let arr = user.split(line);
+            nameFieldText.text = arr[0];
+            surnameFieldText.text = arr[1];
+            eMailFieldText.text = arr[2];
+            tasksList.visible = false;
+            tBar.visible = false;
+            taskTableNames.visible = false;
+            assignorInfoPage.visible = true;
+        }
+
+        function showUserTasks(lineArr = user.getUserTasks()) {
+        let arr;
+        for (let i = 0; i < lineArr.length; ++i) {
+            arr = user.split(lineArr[i]);
+            tasksInfo.append( { adminIdText: arr[0], projectNameText: arr[1], taskNameText: arr[3], statusText: arr[4],} );
+        }
+    }
+}
+
+Connections {
+    target: user
+    onCatchAssignorInfo: {
+        root.showAssignorInfo(type);
+    }
+}
+}

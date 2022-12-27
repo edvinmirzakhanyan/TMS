@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>images/logo.png</file>
+        <file>LogInPage.qml</file>
+        <file>SIgnUpPage.qml</file>
+        <file>images/main.jpg</file>
+        <file>AdminGeneralPage.qml</file>
+        <file>AdminInfoPage.qml</file>
+        <file>DevelopersPage.qml</file>
+        <file>ProjectsPage.qml</file>
+        <file>AdminTaskPage.qml</file>
+        <file>UserGeneralPage.qml</file>
+        <file>UserTasksPage.qml</file>
+    </qresource>
+</RCC>
